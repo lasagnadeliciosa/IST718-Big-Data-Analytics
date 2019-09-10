@@ -20,7 +20,7 @@
 
 # The cell below creates a string named pi out to one million decimal places.  Note that this cell may take a few minutes to run to completion.
 
-# In[73]:
+# In[4]:
 
 
 import numpy as np
@@ -46,7 +46,7 @@ pi = pi.replace(".", "")
 
 # **Question 3.1 (5 pts)** Compute and print the marginal probabilites $P(X_i)$ where X = 0, 1, 2, 3, ..., 9 across all numbers (before and after the decimal point).  Your answer should print 10 marginal probabilities.
 
-# In[72]:
+# In[31]:
 
 
 # Your answer here
@@ -57,8 +57,11 @@ for num in pi:
 probs = []  
 for count in counts:
     probs.append(str(count/len(pi)))
-    
-print(' '.join(probs))
+
+#print(' '.join(probs))
+
+for i in range(10):
+    print("The probability of", i, "is:", float(probs[i])*100,"%")
 
 
 # **Question 3.2 (5 pts)** What kind of distribution do the probabilities in 3.1 suggest?
@@ -72,7 +75,7 @@ print(' '.join(probs))
 
 # **Question 3.3 (10 pts)** Compute the joint probability $P(x_i = 1, x_i-1 = 3)$.  Based on the result, what can you say about the independence relationship?
 
-# In[63]:
+# In[32]:
 
 
 # your answer here
@@ -84,14 +87,14 @@ for i in range(1, len(pi)):
     if pi[i] == '1' and (pi[i-1]) == '3':
         jointCount +=1
         
-print(jointCount/(len(pi)-1))
+print(jointCount/(len(pi)-1)*100,"%")
 
 #based on the result, the independent relationship is very rare, occuring around 1% of the time.
 
 
 # **Question 3.4 (10 pts)** Compute the conditional probability $P(x_i = 3 | x_i-1 = 1)$. 
 
-# In[65]:
+# In[33]:
 
 
 # your answer here
@@ -104,21 +107,13 @@ for i in range(1, len(pi)):
         if pi[i] == '3':
             numerator +=1
 
-print(numerator/denominator)counts = [0] * 10
-for num in pi:
-    counts[int(num)] += 1
-
-probs = []  
-for count in counts:
-    probs.append(str(count/len(pi)))
-    
-print(' '.join(probs))
+print((numerator/denominator)*100,"%")
 
 
 # **Question 3.5 (10 pts)**
 # Assuming that the decimal point is removed from pi, let A be the pi values at indices 1-1000, let B be the pi values at indices 2-1001, let C be the pi values at indices 3-1002.  Compute the sample covariance matrix for A, B, C against each other. without using the built-in command (i.e. code it yourself). The result should be a 3x3 matrix.
 
-# In[92]:
+# In[9]:
 
 
 # Your answer here
@@ -133,9 +128,9 @@ def covariance(x,y):
     return E/(len(x)-1)
 
 #create the three arrays
-A = [int(i) for i in pi[1:1001]]
-B = [int(i) for i in pi[2:1002]]
-C = [int(i) for i in pi[3:1003]]
+A = [int(i) for i in pi[1:1000]]
+B = [int(i) for i in pi[2:1001]]
+C = [int(i) for i in pi[3:1002]]
 
 #3x1000 matrix
 stack = [A, B, C]
@@ -151,7 +146,7 @@ for X in stack:
 print(samp_cov_matrix)
 
 
-# In[91]:
+# In[10]:
 
 
 # with NumPy, much easier
@@ -224,7 +219,7 @@ print(X.dot(Y))
 # \quad
 # $$
 
-# In[71]:
+# In[14]:
 
 
 # your answer here
@@ -241,13 +236,13 @@ Y = np.array(
 Z = np.array(
     [[1],
      [2],
-     [3]])
+     [1]])
 
 print(X.dot(Y).dot(Z))
 
-#[51]
-#[123]
-#[126]
+#[41]
+#[97]
+#[90]
 
 
 # **Extra Credit (5 pts)**  This question is optional.  If you choose to answer this question, you will earn 5 extra credit points.  If you choose not to answer this question, no points will be deducted from your score.  Solve the following equation for $c$ symbolically using the python sympy package.  Convert the solved symbolic solution to a latex format (this can be done with a pyton call), then populate the solution cell with the resulting latex code so that your solution shows up symbolically similar the equation below.
